@@ -1,3 +1,4 @@
+from unittest import loader
 from django.shortcuts import render
 from django.http import HttpResponse
 from polls.models import Question
@@ -6,8 +7,7 @@ from polls.models import Question
 
 def index(request):
     latest_question_list = Question.objects.order_by("-pub_date")[:5]
-    output = ", ".join([q.question_text for q in latest_question_list])
-    return HttpResponse(output)
+    template = loader.get_template("polls/index.html")
 
 
 def detail(request, question_id):
